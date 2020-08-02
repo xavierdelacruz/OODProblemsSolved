@@ -45,12 +45,18 @@ public class CallCenter {
 		return false;
 	}
 	
-	public void ReceiveCall(Call c) {
-		if (!callIdsOutstanding.Contains(c.GetId())) {
+	public void ReceiveCall(Call c) {	
+		var id = c.GetId();		
+		if (callIdsOutstanding.Contains(id)) {
+			Console.WriteLine("Call already in queue. Please wait for your turn.");
+		} else {
+			Random rng = new Random();
+			// This means that its a new call. Give it a new id that's not in the outstanding ones, or -1
+			while (id == -1 || callIdsOutstanding.Contains(id)) {
+				id = rng.Next(0, 65535);
+			}
 			calls.Enqueue(c);
 			callIdsOutstanding.Add(c.GetId());
-		} else {
-			Console.WriteLine("Call already in queue. Please wait for your turn.");
 		}
 	}
 	
