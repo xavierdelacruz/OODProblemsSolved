@@ -1,21 +1,39 @@
-public class Caller {
-	private string name;
-	private string number;
-	private CallCenter cc;
-	private static Call call;
-	public Caller(string name, string phone, CallCenter cc) {
-		this.name = name;
-		this.number = phone;
-		this.cc = cc;
+public class Call {
+	private Caller caller;
+	private int callId;
+	private bool isResolved;
+	private string message;
+	
+	public Call(Caller caller, string phone) {
+		this.caller = caller;
+		this.callId = -1;
 	}
 	
-	public void MakeCall(string message) {
-		if (call == null || call.GetResol()) {
-			call = new Call(this, this.number);
-			call.SetMessage(message);
-			cc.ReceiveCall(call);
-		} else {
-			cc.ReceiveCall(call);
-		}
+	public bool GetResol() {
+		return this.isResolved;
+	}
+	
+	public void SetResol(bool resol) {
+		this.isResolved = resol;
+	}
+	
+	public Caller GetCaller() {
+		return this.caller;
+	}
+	
+	public void SetMessage(string message) {
+		this.message = message;
+	}
+	
+	public string GetMessage() {
+		return this.message;
+	}
+	
+	public int GetId() {
+		return this.callId;
+	}
+	
+	public void SetId(int id) {
+		this.callId = id;
 	}
 }
